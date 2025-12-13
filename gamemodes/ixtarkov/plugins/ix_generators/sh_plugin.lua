@@ -23,3 +23,10 @@ ix.util.Include("devices/sh_lamp.lua")
 if (SERVER) then
     ix.item.LoadFromDir(PLUGIN.folder .. "/items")
 end
+
+
+ix.util.Include("devices/sh_ix_power_devices_loader.lua")
+
+if (SERVER) then
+  ix.item.LoadFromDir(PLUGIN.folder .. "/items")
+end
