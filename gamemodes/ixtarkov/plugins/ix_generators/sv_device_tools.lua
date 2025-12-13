@@ -16,7 +16,6 @@ if SERVER then
             ply:ChatPrint(string.format('Total dispositivos: %d', count))
         end
     end
-
-    ix.command.Add('PowerList', {description = 'Lista los dispositivos eléctricos registrados (debug).', adminOnly   = true, OnRun = function(self, client) listDevicesFor(client) end})
+    ix.command.Add('PowerList', {description = 'Lista los dispositivos eléctricos registrados (debug).', adminOnly = true, OnRun = function(self, client) listDevicesFor(client) end})
     concommand.Add('ix_power_list', function(client) if not IsValid(client) then return end; if not client:IsAdmin() then return end; listDevicesFor(client) end)
 end

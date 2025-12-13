@@ -1,4 +1,3 @@
-
 local PANEL = {}
 
 surface.CreateFont("ixGaugeTitle", {font="Tahoma", size=18, weight=800, antialias=true})
@@ -15,7 +14,7 @@ function PANEL:Init()
     self.unit = ""
     self.majorStep = 20
     self.minorStep = 5
-    self.angleStart = math.rad(180) -- arco superior limpio (180° a 0°)
+    self.angleStart = math.rad(180)
     self.angleEnd   = math.rad(0)
     self.tickLenMinor = 8
     self.tickLenMajor = 16

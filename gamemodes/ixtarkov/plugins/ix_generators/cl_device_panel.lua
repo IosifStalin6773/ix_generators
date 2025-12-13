@@ -1,5 +1,3 @@
-
--- Panel por entidad con gauges superiores (v5.3)
 local openPanels = openPanels or {}
 
 local function spacer(parent, h)

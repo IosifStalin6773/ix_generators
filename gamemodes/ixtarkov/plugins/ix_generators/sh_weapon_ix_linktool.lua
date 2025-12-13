@@ -1,6 +1,3 @@
-
--- sh_weapon_ix_linktool.lua
--- SWEP de Herramientas de conexión: pick y limpiar.
 AddCSLuaFile()
 
 local SWEP = {}

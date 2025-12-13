@@ -1,7 +1,3 @@
-
--- Power Linker STool: conecta generadores con consumidores
--- Ubicación estándar de STools: lua/weapons/gmod_tool/stools/  (tabla TOOL) citeturn8search110
-
 TOOL.Category = "Generators"
 TOOL.Name     = "Power Linker"
 TOOL.Command  = nil

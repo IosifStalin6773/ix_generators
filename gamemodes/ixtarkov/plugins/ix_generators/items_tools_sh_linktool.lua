@@ -1,5 +1,3 @@
-
--- items/tools/sh_linktool.lua (v5.1): ahora da/retira una SWEP al equipar/guardar
 ITEM.name = "Herramientas de conexión"
 ITEM.description = "Pinzas y cableado para enlazar equipos eléctricos."
 ITEM.model = "models/Items/BoxFlares.mdl"
@@ -12,7 +10,7 @@ local function setEquipped(ply, equipped, swepClass)
     if not IsValid(ply) then return end
     ply:SetNWBool("ix_power_tool_equipped", equipped)
     if equipped then
-        -- Dar SWEP y seleccionar
+        
         if not ply:HasWeapon(swepClass) then ply:Give(swepClass) end
         timer.Simple(0, function()
             if IsValid(ply) and ply:HasWeapon(swepClass) then
@@ -21,7 +19,7 @@ local function setEquipped(ply, equipped, swepClass)
         end)
         ply:ChatPrint("Herramientas equipadas: Primario pick origen/destino, Secundario limpiar.")
     else
-        -- Retirar SWEP
+        
         if ply:HasWeapon(swepClass) then ply:StripWeapon(swepClass) end
         ply:ChatPrint("Herramientas de conexión guardadas.")
     end
@@ -32,7 +30,7 @@ ITEM.functions.Equipar = {
     icon = "icon16/wrench.png",
     OnRun = function(item)
         setEquipped(item.player, true, item.swepClass)
-        return false -- no eliminar el item
+        return false 
     end
 }
 
@@ -45,7 +43,7 @@ ITEM.functions.Guardar = {
     end
 }
 
--- Seguridad: al eliminar o transferir el ítem, quitar la SWEP si está equipada
+
 function ITEM:OnRemoved()
     local ply = self.player
     if IsValid(ply) and ply:GetNWBool("ix_power_tool_equipped", false) then

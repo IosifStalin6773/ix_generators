@@ -1,3 +1,4 @@
+
 AddCSLuaFile()
 local ENT = {}
 ENT.Type = "anim"
@@ -17,14 +18,11 @@ end
 
 if SERVER then
     util.AddNetworkString("ix_power_device_open")
-
     local function applyDef(self)
         local id = self:GetDeviceID()
         local def = ix.power and id and ix.power.GetDevice(id) or nil
         if not def then return end
-        if def.model and self:GetModel() ~= def.model then
-            self:SetModel(def.model)
-        end
+        if def.model and self:GetModel() ~= def.model then self:SetModel(def.model) end
         local cap = def.fuelCapacity or 0
         self:SetFuelCapacity(cap)
         if (self._appliedOnce or false) == false then
@@ -34,7 +32,6 @@ if SERVER then
         end
         self._lastDeviceID = id
     end
-
     function ENT:Initialize()
         applyDef(self)
         self:PhysicsInit(SOLID_VPHYSICS)
@@ -48,7 +45,6 @@ if SERVER then
         self.nextToggle = 0
         if not self:GetVoltage() then self:SetVoltage(0) end
     end
-
     function ENT:AttemptToggle(activator)
         local def = ix.power and ix.power.GetDevice(self:GetDeviceID()) or nil
         local cd = (def and def.toggleCooldown) or 3
@@ -69,19 +65,15 @@ if SERVER then
         self:SetActive(not self:GetActive())
         return true
     end
-
     function ENT:Use(activator)
         if not IsValid(activator) or not activator:IsPlayer() then return end
         net.Start("ix_power_device_open")
         net.WriteUInt(self:EntIndex(), 16)
         net.Send(activator)
     end
-
     function ENT:Think()
         local currentID = self:GetDeviceID()
-        if currentID and currentID ~= self._lastDeviceID then
-            applyDef(self)
-        end
+        if currentID and currentID ~= self._lastDeviceID then applyDef(self) end
         local def = ix.power and ix.power.GetDevice(self:GetDeviceID()) or nil
         if not def then return end
         local ct = CurTime()
@@ -99,15 +91,12 @@ if SERVER then
                     self:SetStored(math.min((self:GetStored() or 0) + (def.output or 0), 100000))
                     self:SetVoltage(voltage)
                 elseif def.type == "consumer" then
-                    
                     self:SetStored(math.max((self:GetStored() or 0) - math.abs(def.output or 0), 0))
                 elseif def.type == "battery" then
                     local capE = def.capacity or 0
                     self:SetStored(math.Clamp((self:GetStored() or 0), 0, capE))
                     local pct = capE > 0 and ((self:GetStored() or 0) / capE) or 0
                     self:SetVoltage(voltage * pct)
-                else
-                    
                 end
             else
                 self:SetVoltage(0)
@@ -134,5 +123,4 @@ else
         end
     end
 end
-
 scripted_ents.Register(ENT, "ix_power_device")
